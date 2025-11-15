@@ -1,3 +1,0 @@
-C:/Users/Егор/Documents/GitHub/bearlang-app/app/out/build/x64-debug/CMakeFiles/app.dir
-C:/Users/Егор/Documents/GitHub/bearlang-app/app/out/build/x64-debug/CMakeFiles/edit_cache.dir
-C:/Users/Егор/Documents/GitHub/bearlang-app/app/out/build/x64-debug/CMakeFiles/rebuild_cache.dir
