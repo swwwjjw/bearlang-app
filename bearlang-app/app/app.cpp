@@ -6,7 +6,6 @@
 #include <string>
 #include <vector>
 #include <cstdlib>
-
 #include "core/codegen/codegen.h"
 #include "core/lexer/lexer.h"
 #include "core/parser/parser.h"
@@ -92,7 +91,7 @@ bool translateAndRun(const fs::path& sourcePath, const fs::path& workspace) {
 }
 
 void printMenu() {
-    std::cout << "\n🐻 BearLang Classroom" << std::endl;
+    std::cout << "BearLang Classroom" << std::endl;
     std::cout << "1. Запустить пример" << std::endl;
     std::cout << "2. Указать свой файл" << std::endl;
     std::cout << "3. Выход" << std::endl;
@@ -100,7 +99,6 @@ void printMenu() {
 }
 
 int main() {
-    setlocale(LC_ALL, "Russian");
     fs::path root = fs::current_path();
     fs::path examplesDir = root / "examples";
     fs::path buildDir = root / "out";
