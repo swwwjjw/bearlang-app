@@ -1,12 +1,7 @@
-﻿// app.cpp: определяет точку входа для приложения.
-//
-
-#include "app.h"
-
-using namespace std;
+﻿#include "app.h"
 
 int main()
 {
-	cout << "Hello CMake." << endl;
+	std::cout << "Hello CMake." << std::endl;
 	return 0;
 }
