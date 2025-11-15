@@ -1,11 +1,17 @@
 #include <algorithm>
+#include <clocale>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <locale>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 #include <vector>
 #include <cstdlib>
+#ifdef _WIN32
+#include <windows.h>
+#endif
 #include "core/codegen/codegen.h"
 #include "core/lexer/lexer.h"
 #include "core/parser/parser.h"
@@ -14,6 +20,23 @@ namespace fs = std::filesystem;
 using bearlang::CodeGenerator;
 using bearlang::Lexer;
 using bearlang::Parser;
+
+void configureConsoleLocale() {
+    std::setlocale(LC_ALL, "");
+    try {
+        const std::locale locale("");
+        std::locale::global(locale);
+        std::cout.imbue(locale);
+        std::cin.imbue(locale);
+        std::cerr.imbue(locale);
+    } catch (const std::exception&) {
+        // Ignore locale errors and continue with the default locale.
+    }
+#ifdef _WIN32
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+#endif
+}
 
 std::string readAll(const fs::path& path) {
     std::ifstream in(path, std::ios::binary);
@@ -99,6 +122,7 @@ void printMenu() {
 }
 
 int main() {
+    configureConsoleLocale();
     fs::path root = fs::current_path();
     fs::path examplesDir = root / "examples";
     fs::path buildDir = root / "out";
