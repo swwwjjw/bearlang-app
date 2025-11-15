@@ -1,0 +1,1 @@
+/usr/bin/g++ CMakeFiles/bearlang_app.dir/app/app.cpp.o CMakeFiles/bearlang_app.dir/app/core/codegen/codegen.cpp.o CMakeFiles/bearlang_app.dir/app/core/lexer/lexer.cpp.o CMakeFiles/bearlang_app.dir/app/core/lexer/token.cpp.o CMakeFiles/bearlang_app.dir/app/core/parser/parser.cpp.o -o bearlang_app 
