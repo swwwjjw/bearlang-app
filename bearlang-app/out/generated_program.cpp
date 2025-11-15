@@ -6,8 +6,8 @@ int main() {
     std::ios_base::sync_with_stdio(false);
     std::cin.tie(nullptr);
     std::cout << std::boolalpha;
-    double a;
-    double b;
+    double a{};
+    double b{};
     std::cout << "Введите первое число:" << std::endl;
     std::cin >> a;
     std::cout << "Введите второе число:" << std::endl;
