@@ -79,7 +79,7 @@ std::vector<fs::path> loadExamples(const fs::path& examplesDir) {
         if (!entry.is_regular_file()) {
             continue;
         }
-        if (entry.path().extension() == ".bear") {
+        if (entry.path().extension() == ".txt") {
             files.push_back(entry.path());
         }
     }
@@ -191,7 +191,7 @@ int main() {
             }
             translateAndRun(examples[index - 1], buildDir);
         } else if (choice == "2") {
-            std::cout << "Введите путь до .bear файла: ";
+            std::cout << "Введите путь до .txt файла: ";
             std::string path;
             std::getline(std::cin, path);
             if (path.empty()) {

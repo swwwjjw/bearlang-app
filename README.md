@@ -6,7 +6,7 @@ BearLang Classroom is a tiny C++ application that helps children take their firs
 - Tokenizer, parser, and code generator tailored to BearLang.
 - Translation of BearLang programs into readable C++20 code.
 - One-button runner: compile the generated C++ with `g++` and show the output.
-- Starter library of examples (`examples/*.bear`).
+- Starter library of examples (`examples/*.txt`).
 - Helpful error messages when the code cannot be parsed.
 
 ## BearLang Cheatsheet
@@ -36,12 +36,12 @@ cmake --build build
 ./build/bearlang_app
 ```
 Then:
-1. Pick one of the bundled examples **or** type the path to your own `.bear` file.
+1. Pick one of the bundled examples **or** type the path to your own `.txt` file.
 2. The translator shows where the generated C++ file lives.
 3. The program is compiled with `g++ -std=c++20` and executed; provide any required input directly in the same terminal.
 
 ## Adding New Lessons
-1. Drop a new `.bear` script under `examples/`.
+1. Drop a new `.txt` script under `examples/`.
 2. Teach new syntax by extending the lexer (`app/core/lexer`), parser (`app/core/parser`), and code generator (`app/core/codegen`).
 3. Rebuild the tool—no other setup is required.
 
