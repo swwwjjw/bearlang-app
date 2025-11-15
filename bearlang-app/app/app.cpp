@@ -9,6 +9,7 @@
 #include "core/codegen/codegen.h"
 #include "core/lexer/lexer.h"
 #include "core/parser/parser.h"
+#include <windows.h>
 
 namespace fs = std::filesystem;
 using bearlang::CodeGenerator;
@@ -99,6 +100,8 @@ void printMenu() {
 }
 
 int main() {
+    SetConsoleCP(CP_UTF8);
+    SetConsoleOutputCP(CP_UTF8);
     fs::path root = fs::current_path();
     fs::path examplesDir = root / "examples";
     fs::path buildDir = root / "out";
