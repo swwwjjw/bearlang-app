@@ -9,12 +9,56 @@
 #include "core/codegen/codegen.h"
 #include "core/lexer/lexer.h"
 #include "core/parser/parser.h"
+#ifdef _WIN32
 #include <windows.h>
+#else
+#include <unistd.h>
+#endif
 
 namespace fs = std::filesystem;
 using bearlang::CodeGenerator;
 using bearlang::Lexer;
 using bearlang::Parser;
+
+fs::path executableDir() {
+#ifdef _WIN32
+    std::wstring buffer(MAX_PATH, L'\0');
+    DWORD length = GetModuleFileNameW(nullptr, buffer.data(), static_cast<DWORD>(buffer.size()));
+    if (length == 0) {
+        return fs::current_path();
+    }
+    buffer.resize(length);
+    return fs::path(buffer).parent_path();
+#else
+    std::vector<char> buffer(1024);
+    while (true) {
+        ssize_t length = ::readlink("/proc/self/exe", buffer.data(), buffer.size() - 1);
+        if (length < 0) {
+            return fs::current_path();
+        }
+        if (static_cast<std::size_t>(length) < buffer.size() - 1) {
+            buffer[length] = '\0';
+            return fs::path(buffer.data()).parent_path();
+        }
+        buffer.resize(buffer.size() * 2);
+    }
+#endif
+}
+
+fs::path findProjectRoot(const fs::path& startDir) {
+    fs::path current = startDir;
+    while (!current.empty()) {
+        if (fs::exists(current / "examples")) {
+            return current;
+        }
+        const auto parent = current.parent_path();
+        if (parent == current) {
+            break;
+        }
+        current = parent;
+    }
+    return startDir;
+}
 
 std::string readAll(const fs::path& path) {
     std::ifstream in(path, std::ios::binary);
@@ -100,9 +144,11 @@ void printMenu() {
 }
 
 int main() {
+#ifdef _WIN32
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
-    fs::path root = fs::current_path();
+#endif
+    fs::path root = findProjectRoot(executableDir());
     fs::path examplesDir = root / "examples";
     fs::path buildDir = root / "out";
     fs::create_directories(buildDir);
