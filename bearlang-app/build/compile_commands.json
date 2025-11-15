@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/workspace/bearlang-app/build",
+  "command": "/usr/bin/g++  -I/workspace/bearlang-app/app -std=gnu++20 -o CMakeFiles/bearlang_app.dir/app/app.cpp.o -c /workspace/bearlang-app/app/app.cpp",
+  "file": "/workspace/bearlang-app/app/app.cpp",
+  "output": "CMakeFiles/bearlang_app.dir/app/app.cpp.o"
+},
+{
+  "directory": "/workspace/bearlang-app/build",
+  "command": "/usr/bin/g++  -I/workspace/bearlang-app/app -std=gnu++20 -o CMakeFiles/bearlang_app.dir/app/core/codegen/codegen.cpp.o -c /workspace/bearlang-app/app/core/codegen/codegen.cpp",
+  "file": "/workspace/bearlang-app/app/core/codegen/codegen.cpp",
+  "output": "CMakeFiles/bearlang_app.dir/app/core/codegen/codegen.cpp.o"
+},
+{
+  "directory": "/workspace/bearlang-app/build",
+  "command": "/usr/bin/g++  -I/workspace/bearlang-app/app -std=gnu++20 -o CMakeFiles/bearlang_app.dir/app/core/lexer/lexer.cpp.o -c /workspace/bearlang-app/app/core/lexer/lexer.cpp",
+  "file": "/workspace/bearlang-app/app/core/lexer/lexer.cpp",
+  "output": "CMakeFiles/bearlang_app.dir/app/core/lexer/lexer.cpp.o"
+},
+{
+  "directory": "/workspace/bearlang-app/build",
+  "command": "/usr/bin/g++  -I/workspace/bearlang-app/app -std=gnu++20 -o CMakeFiles/bearlang_app.dir/app/core/lexer/token.cpp.o -c /workspace/bearlang-app/app/core/lexer/token.cpp",
+  "file": "/workspace/bearlang-app/app/core/lexer/token.cpp",
+  "output": "CMakeFiles/bearlang_app.dir/app/core/lexer/token.cpp.o"
+},
+{
+  "directory": "/workspace/bearlang-app/build",
+  "command": "/usr/bin/g++  -I/workspace/bearlang-app/app -std=gnu++20 -o CMakeFiles/bearlang_app.dir/app/core/parser/parser.cpp.o -c /workspace/bearlang-app/app/core/parser/parser.cpp",
+  "file": "/workspace/bearlang-app/app/core/parser/parser.cpp",
+  "output": "CMakeFiles/bearlang_app.dir/app/core/parser/parser.cpp.o"
+}
+]

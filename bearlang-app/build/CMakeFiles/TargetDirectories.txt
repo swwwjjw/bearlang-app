@@ -1,0 +1,3 @@
+/workspace/bearlang-app/build/CMakeFiles/bearlang_app.dir
+/workspace/bearlang-app/build/CMakeFiles/edit_cache.dir
+/workspace/bearlang-app/build/CMakeFiles/rebuild_cache.dir
