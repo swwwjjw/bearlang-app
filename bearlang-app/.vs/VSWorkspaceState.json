@@ -6,8 +6,9 @@
     ]
   },
   "ExpandedNodes": [
-    ""
+    "",
+    "\\app"
   ],
-  "SelectedNode": "\\CMakeLists.txt",
+  "SelectedNode": "\\app\\app.cpp",
   "PreviewInSolutionExplorer": false
 }

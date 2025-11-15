@@ -100,6 +100,7 @@ void printMenu() {
 }
 
 int main() {
+    setlocale(LC_ALL, "Russian");
     fs::path root = fs::current_path();
     fs::path examplesDir = root / "examples";
     fs::path buildDir = root / "out";
