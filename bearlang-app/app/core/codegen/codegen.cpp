@@ -2,10 +2,49 @@
 
 #include <sstream>
 #include <string>
+#include <unordered_map>
+#include <vector>
 
 namespace bearlang {
 
 namespace {
+
+class NameMangler {
+public:
+    NameMangler() {
+        scopes_.emplace_back();
+    }
+
+    void pushScope() {
+        scopes_.emplace_back();
+    }
+
+    void popScope() {
+        if (scopes_.size() > 1) {
+            scopes_.pop_back();
+        }
+    }
+
+    std::string declare(const std::string& original) {
+        std::string renamed = "vr_" + std::to_string(++counter_);
+        scopes_.back()[original] = renamed;
+        return renamed;
+    }
+
+    std::string resolve(const std::string& original) const {
+        for (auto it = scopes_.rbegin(); it != scopes_.rend(); ++it) {
+            auto found = it->find(original);
+            if (found != it->end()) {
+                return found->second;
+            }
+        }
+        return original;
+    }
+
+private:
+    std::size_t counter_ = 0;
+    std::vector<std::unordered_map<std::string, std::string>> scopes_;
+};
 
 template <typename... Ts>
 struct Overloaded : Ts... {
@@ -44,63 +83,75 @@ std::string escapeString(const std::string& value) {
     return escaped;
 }
 
-std::string emitExpression(const ExprPtr& expr);
-void emitStatements(const std::vector<StmtPtr>& statements, std::size_t indentLevel, std::ostringstream& out);
+std::string emitExpression(const ExprPtr& expr, const NameMangler& mangler);
+void emitStatements(const std::vector<StmtPtr>& statements,
+                    std::size_t indentLevel,
+                    std::ostringstream& out,
+                    NameMangler& mangler,
+                    bool createNewScope);
 
-void emitStatement(const Statement& statement, std::size_t indentLevel, std::ostringstream& out) {
+void emitStatement(const Statement& statement,
+                   std::size_t indentLevel,
+                   std::ostringstream& out,
+                   NameMangler& mangler) {
     std::visit(Overloaded{
                    [&](const Statement::VarDecl& decl) {
-                       out << indent(indentLevel) << cppType(decl.type) << " " << decl.name;
+                       const std::string cppName = mangler.declare(decl.name);
+                       out << indent(indentLevel) << cppType(decl.type) << " " << cppName;
                        if (decl.initializer) {
-                           out << " = " << emitExpression(decl.initializer);
+                           out << " = " << emitExpression(decl.initializer, mangler);
                        } else {
                            out << "{}";
                        }
                        out << ";\n";
                    },
                    [&](const Statement::Assign& assign) {
-                       out << indent(indentLevel) << assign.name << " = "
-                           << emitExpression(assign.value) << ";\n";
+                       out << indent(indentLevel) << mangler.resolve(assign.name) << " = "
+                           << emitExpression(assign.value, mangler) << ";\n";
                    },
                    [&](const Statement::Input& input) {
-                       out << indent(indentLevel) << "std::cin >> " << input.name << ";\n";
+                       out << indent(indentLevel) << "std::cin >> "
+                           << mangler.resolve(input.name) << ";\n";
                    },
                    [&](const Statement::Output& output) {
                        out << indent(indentLevel) << "std::cout << "
-                           << emitExpression(output.value) << " << std::endl;\n";
+                           << emitExpression(output.value, mangler) << " << std::endl;\n";
                    },
                    [&](const Statement::If& ifStmt) {
                        for (std::size_t i = 0; i < ifStmt.branches.size(); ++i) {
                            const auto& branch = ifStmt.branches[i];
                            out << indent(indentLevel) << (i == 0 ? "if" : "else if")
-                               << " (" << emitExpression(branch.condition) << ") {\n";
-                           emitStatements(branch.body, indentLevel + 1, out);
+                               << " (" << emitExpression(branch.condition, mangler) << ") {\n";
+                           emitStatements(branch.body, indentLevel + 1, out, mangler, true);
                            out << indent(indentLevel) << "}\n";
                        }
                        if (ifStmt.hasElse) {
                            out << indent(indentLevel) << "else {\n";
-                           emitStatements(ifStmt.elseBranch, indentLevel + 1, out);
+                           emitStatements(ifStmt.elseBranch, indentLevel + 1, out, mangler, true);
                            out << indent(indentLevel) << "}\n";
                        }
                    },
                    [&](const Statement::WhileLoop& loop) {
-                       out << indent(indentLevel) << "while (" << emitExpression(loop.condition)
-                           << ") {\n";
-                       emitStatements(loop.body, indentLevel + 1, out);
+                       out << indent(indentLevel) << "while ("
+                           << emitExpression(loop.condition, mangler) << ") {\n";
+                       emitStatements(loop.body, indentLevel + 1, out, mangler, true);
                        out << indent(indentLevel) << "}\n";
                    },
                    [&](const Statement::ForRange& loop) {
+                       mangler.pushScope();
+                       const std::string loopName = mangler.declare(loop.name);
                        out << indent(indentLevel) << "for (" << cppType(loop.type) << " "
-                           << loop.name << " = " << emitExpression(loop.from) << "; "
-                           << loop.name << " <= " << emitExpression(loop.to) << "; ++"
-                           << loop.name << ") {\n";
-                       emitStatements(loop.body, indentLevel + 1, out);
+                           << loopName << " = " << emitExpression(loop.from, mangler) << "; "
+                           << loopName << " <= " << emitExpression(loop.to, mangler) << "; ++"
+                           << loopName << ") {\n";
+                       emitStatements(loop.body, indentLevel + 1, out, mangler, true);
                        out << indent(indentLevel) << "}\n";
+                       mangler.popScope();
                    }},
                statement.node);
 }
 
-std::string emitExpression(const ExprPtr& expr) {
+std::string emitExpression(const ExprPtr& expr, const NameMangler& mangler) {
     if (!expr) {
         return "0";
     }
@@ -120,24 +171,36 @@ std::string emitExpression(const ExprPtr& expr) {
                         return literal.text;
                 }
             },
-            [](const Expression::Variable& var) { return var.name; },
-            [](const Expression::Unary& unary) {
-                return unary.op + "(" + emitExpression(unary.operand) + ")";
+            [&](const Expression::Variable& var) {
+                return mangler.resolve(var.name);
             },
-            [](const Expression::Binary& binary) {
+            [&](const Expression::Unary& unary) {
+                return unary.op + "(" + emitExpression(unary.operand, mangler) + ")";
+            },
+            [&](const Expression::Binary& binary) {
                 if (binary.op == "^") {
-                    return std::string("std::pow(") + emitExpression(binary.left) + ", " +
-                           emitExpression(binary.right) + ")";
+                    return std::string("std::pow(") + emitExpression(binary.left, mangler) + ", " +
+                           emitExpression(binary.right, mangler) + ")";
                 }
-                return std::string("(") + emitExpression(binary.left) + " " + binary.op +
-                       " " + emitExpression(binary.right) + ")";
+                return std::string("(") + emitExpression(binary.left, mangler) + " " + binary.op +
+                       " " + emitExpression(binary.right, mangler) + ")";
             }},
         expr->node);
 }
 
-void emitStatements(const std::vector<StmtPtr>& statements, std::size_t indentLevel, std::ostringstream& out) {
+void emitStatements(const std::vector<StmtPtr>& statements,
+                    std::size_t indentLevel,
+                    std::ostringstream& out,
+                    NameMangler& mangler,
+                    bool createNewScope) {
+    if (createNewScope) {
+        mangler.pushScope();
+    }
     for (const auto& stmt : statements) {
-        emitStatement(*stmt, indentLevel, out);
+        emitStatement(*stmt, indentLevel, out, mangler);
+    }
+    if (createNewScope) {
+        mangler.popScope();
     }
 }
 
@@ -145,6 +208,7 @@ void emitStatements(const std::vector<StmtPtr>& statements, std::size_t indentLe
 
 std::string CodeGenerator::generate(const Program& program) {
     std::ostringstream out;
+    NameMangler mangler;
     out << "#include <cmath>\n";
     out << "#include <iostream>\n";
     out << "#include <string>\n\n";
@@ -152,7 +216,7 @@ std::string CodeGenerator::generate(const Program& program) {
     out << indent(1) << "std::ios_base::sync_with_stdio(false);\n";
     out << indent(1) << "std::cin.tie(nullptr);\n";
     out << indent(1) << "std::cout << std::boolalpha;\n";
-    emitStatements(program.statements, 1, out);
+    emitStatements(program.statements, 1, out, mangler, false);
     out << indent(1) << "return 0;\n";
     out << "}\n";
     return out.str();
