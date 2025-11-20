@@ -101,7 +101,7 @@ bool compileAndRun(const std::string& cppSource, const fs::path& workspace) {
 
     std::cout << "C++ код сохранён в: " << cppPath << "\n";
 
-    std::string compileCommand = "g++ -std=c++20 \"" + cppPath.string() + "\" -o \"" + exePath.string() + "\"";
+    std::string compileCommand = "g++ -std=c++03 \"" + cppPath.string() + "\" -o \"" + exePath.string() + "\"";
     std::cout << "Компиляция...\n";
     int compileResult = std::system(compileCommand.c_str());
     if (compileResult != 0) {

@@ -6,8 +6,10 @@
     ]
   },
   "ExpandedNodes": [
-    ""
+    "",
+    "\\app",
+    "\\app\\core"
   ],
-  "SelectedNode": "\\out",
+  "SelectedNode": "\\app\\app.cpp",
   "PreviewInSolutionExplorer": false
 }
