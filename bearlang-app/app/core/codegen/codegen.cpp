@@ -214,8 +214,8 @@ std::string CodeGenerator::generate(const Program& program) {
     out << "#include <string>\n\n";
     out << "int main() {\n";
     out << indent(1) << "std::ios_base::sync_with_stdio(false);\n";
-    out << indent(1) << "std::cin.tie(nullptr);\n";
-    out << indent(1) << "std::cout << std::boolalpha;\n";
+    //out << indent(1) << "std::cin.tie(nullptr);\n";
+    //out << indent(1) << "std::cout << std::boolalpha;\n";
     emitStatements(program.statements, 1, out, mangler, false);
     out << indent(1) << "return 0;\n";
     out << "}\n";

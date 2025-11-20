@@ -8,7 +8,8 @@
   "ExpandedNodes": [
     "",
     "\\app",
-    "\\app\\core"
+    "\\app\\core",
+    "\\app\\core\\codegen"
   ],
   "SelectedNode": "\\app\\app.cpp",
   "PreviewInSolutionExplorer": false

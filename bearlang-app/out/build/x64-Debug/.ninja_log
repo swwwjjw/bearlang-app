@@ -1,13 +1,9 @@
 # ninja log v5
 12	464	7849199578805758	CMakeFiles/bearlang_app.dir/app/core/lexer/token.cpp.obj	2b0a150d1dfcb996
 16	1211	7849199586279526	CMakeFiles/bearlang_app.dir/app/core/parser/parser.cpp.obj	5ba69af497aef89a
-6	1253	7849199586748229	CMakeFiles/bearlang_app.dir/app/core/codegen/codegen.cpp.obj	23b307dc746a1e63
+2	1015	7853551911747698	CMakeFiles/bearlang_app.dir/app/core/codegen/codegen.cpp.obj	23b307dc746a1e63
 9	1077	7849199584873249	CMakeFiles/bearlang_app.dir/app/core/lexer/lexer.cpp.obj	797e7d3c747948e0
-21	2680	7849322749430227	CMakeFiles/bearlang_app.dir/app/app.cpp.obj	6f01804e465b343f
-2686	2916	7849322751383850	bearlang_app.exe	fdc655d6e0210745
-18	2391	7853510735817436	CMakeFiles/bearlang_app.dir/app/app.cpp.obj	6f01804e465b343f
-2392	2663	7853510737848525	bearlang_app.exe	fdc655d6e0210745
-21	2084	7853511240867265	CMakeFiles/bearlang_app.dir/app/app.cpp.obj	6f01804e465b343f
-2085	2322	7853511242898463	bearlang_app.exe	fdc655d6e0210745
 22	2089	7853513044374763	CMakeFiles/bearlang_app.dir/app/app.cpp.obj	6f01804e465b343f
-2090	2241	7853513045611775	bearlang_app.exe	fdc655d6e0210745
+1016	1155	7853551912767533	bearlang_app.exe	fdc655d6e0210745
+2	2106	7853554609182192	CMakeFiles/bearlang_app.dir/app/app.cpp.obj	6f01804e465b343f
+2107	2266	7853554610434866	bearlang_app.exe	fdc655d6e0210745
