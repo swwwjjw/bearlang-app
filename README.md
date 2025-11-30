@@ -2,6 +2,24 @@
 
 BearLang Classroom is a tiny C++ application that helps children take their first programming steps. Kids write short BearLang scripts (a friendly, Russian-like language), see the generated C++ code, and immediately run the compiled result.
 
+## Task Description
+The tool provides an end-to-end playground: read a BearLang script, turn it into an abstract syntax tree (AST), produce human-readable C++20, and invoke `g++` so learners can observe both the generated source and runtime output. The repository contains all compiler stages (lexer → parser → code generator) plus a CLI wrapper that loads `examples/*.txt`, reports translation errors in Russian, and streams program input/output through the same terminal session.
+
+## Functionality Formalization
+**Supported**
+- Source format: UTF-8 BearLang text files with indentation-based blocks (tabs count as four spaces) and optional `//` comments.
+- Types and literals: `целое`, `дробное`, `строка`, `логика`; integer, floating-point, quoted string (with `\"`, `\\`, `\n`, `\t` escapes), and boolean literals `правда` / `ложь`.
+- Statements: typed variable declarations with optional initializer, reassignment of existing identifiers, `ввод name`/`вывод expr`, `если`/`иначе если`/`иначе`, `пока (условие)`, and `для (<тип> i от expr до expr)` with inclusive upper bound and step `+1`.
+- Expressions: parentheses, identifier references, unary `-` / `не`, arithmetic `+ - * / % ^`, comparisons (`< <= > >= ==`), and logical `и` / `или`. Power maps to `std::pow`, other operators translate directly to C++.
+- Code generation: wraps statements inside `int main()`, injects standard headers, ensures scoped variable mangling per block, and emits readable, indented C++ that is immediately compiled via the CLI helper.
+
+**Not supported**
+- User-defined functions, procedures, or return statements; every script is a straight-line `main`.
+- Collections, arrays, structs, type inference, or automatic conversions beyond what C++ accepts for the emitted code.
+- Loop modifiers (`break`, `continue`), custom step sizes in `для`, or decremented ranges.
+- Multi-line or single-quoted strings, raw string literals, and multi-line comments.
+- Advanced I/O (`форматированный вывод`, files) and runtime libraries outside `iostream`, `cmath`, and `string`.
+
 ## Features
 - Tokenizer, parser, and code generator tailored to BearLang.
 - Translation of BearLang programs into readable C++20 code.
