@@ -174,28 +174,28 @@ StmtPtr Parser::parseIf() {
     auto condition = parseParenthesizedCondition("если");
     auto ifBody = parseIndentedBlock("условия 'если'");
 
-    Statement::If ifStmt;
-    Statement::IfBranch firstBranch;
+    auto ifStmt = std::make_unique<IfStmt>();
+    IfStmt::Branch firstBranch;
     firstBranch.condition = std::move(condition);
     firstBranch.body = std::move(ifBody);
-    ifStmt.branches.push_back(std::move(firstBranch));
+    ifStmt->branches.push_back(std::move(firstBranch));
 
     while (match(TokenType::KeywordElse)) {
         if (match(TokenType::KeywordIf)) {
             auto elseIfCond = parseParenthesizedCondition("иначе если");
             auto elseIfBody = parseIndentedBlock("условия 'иначе если'");
-            Statement::IfBranch branch;
+            IfStmt::Branch branch;
             branch.condition = std::move(elseIfCond);
             branch.body = std::move(elseIfBody);
-            ifStmt.branches.push_back(std::move(branch));
+            ifStmt->branches.push_back(std::move(branch));
         } else {
-            ifStmt.elseBranch = parseIndentedBlock("блока 'иначе'");
-            ifStmt.hasElse = true;
+            ifStmt->elseBranch = parseIndentedBlock("блока 'иначе'");
+            ifStmt->hasElse = true;
             break;
         }
     }
 
-    return std::make_unique<Statement>(Statement{Statement::Variant{std::move(ifStmt)}});
+    return ifStmt;
 }
 
 StmtPtr Parser::parseWhile() {

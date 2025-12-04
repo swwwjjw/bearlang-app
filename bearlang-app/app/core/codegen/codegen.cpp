@@ -46,14 +46,6 @@ private:
     std::vector<std::unordered_map<std::string, std::string>> scopes_;
 };
 
-template <typename... Ts>
-struct Overloaded : Ts... {
-    using Ts::operator()...;
-};
-
-template <typename... Ts>
-Overloaded(Ts...) -> Overloaded<Ts...>;
-
 std::string indent(std::size_t level) {
     return std::string(level * 4, ' ');
 }
@@ -94,98 +86,114 @@ void emitStatement(const Statement& statement,
                    std::size_t indentLevel,
                    std::ostringstream& out,
                    NameMangler& mangler) {
-    std::visit(Overloaded{
-                   [&](const Statement::VarDecl& decl) {
-                       const std::string cppName = mangler.declare(decl.name);
-                       out << indent(indentLevel) << cppType(decl.type) << " " << cppName;
-                       if (decl.initializer) {
-                           out << " = " << emitExpression(decl.initializer, mangler);
-                       } else {
-                           out << "{}";
-                       }
-                       out << ";\n";
-                   },
-                   [&](const Statement::Assign& assign) {
-                       out << indent(indentLevel) << mangler.resolve(assign.name) << " = "
-                           << emitExpression(assign.value, mangler) << ";\n";
-                   },
-                   [&](const Statement::Input& input) {
-                       out << indent(indentLevel) << "std::cin >> "
-                           << mangler.resolve(input.name) << ";\n";
-                   },
-                   [&](const Statement::Output& output) {
-                       out << indent(indentLevel) << "std::cout << "
-                           << emitExpression(output.value, mangler) << " << std::endl;\n";
-                   },
-                   [&](const Statement::If& ifStmt) {
-                       for (std::size_t i = 0; i < ifStmt.branches.size(); ++i) {
-                           const auto& branch = ifStmt.branches[i];
-                           out << indent(indentLevel) << (i == 0 ? "if" : "else if")
-                               << " (" << emitExpression(branch.condition, mangler) << ") {\n";
-                           emitStatements(branch.body, indentLevel + 1, out, mangler, true);
-                           out << indent(indentLevel) << "}\n";
-                       }
-                       if (ifStmt.hasElse) {
-                           out << indent(indentLevel) << "else {\n";
-                           emitStatements(ifStmt.elseBranch, indentLevel + 1, out, mangler, true);
-                           out << indent(indentLevel) << "}\n";
-                       }
-                   },
-                   [&](const Statement::WhileLoop& loop) {
-                       out << indent(indentLevel) << "while ("
-                           << emitExpression(loop.condition, mangler) << ") {\n";
-                       emitStatements(loop.body, indentLevel + 1, out, mangler, true);
-                       out << indent(indentLevel) << "}\n";
-                   },
-                   [&](const Statement::ForRange& loop) {
-                       mangler.pushScope();
-                       const std::string loopName = mangler.declare(loop.name);
-                       out << indent(indentLevel) << "for (" << cppType(loop.type) << " "
-                           << loopName << " = " << emitExpression(loop.from, mangler) << "; "
-                           << loopName << " <= " << emitExpression(loop.to, mangler) << "; ++"
-                           << loopName << ") {\n";
-                       emitStatements(loop.body, indentLevel + 1, out, mangler, true);
-                       out << indent(indentLevel) << "}\n";
-                       mangler.popScope();
-                   }},
-               statement.node);
+    switch (statement.kind()) {
+        case StatementKind::VarDecl: {
+            const auto& decl = static_cast<const VarDeclStmt&>(statement);
+            const std::string cppName = mangler.declare(decl.name);
+            out << indent(indentLevel) << cppType(decl.type) << " " << cppName;
+            if (decl.initializer) {
+                out << " = " << emitExpression(decl.initializer, mangler);
+            } else {
+                out << "{}";
+            }
+            out << ";\n";
+            break;
+        }
+        case StatementKind::Assign: {
+            const auto& assign = static_cast<const AssignStmt&>(statement);
+            out << indent(indentLevel) << mangler.resolve(assign.name) << " = "
+                << emitExpression(assign.value, mangler) << ";\n";
+            break;
+        }
+        case StatementKind::Input: {
+            const auto& input = static_cast<const InputStmt&>(statement);
+            out << indent(indentLevel) << "std::cin >> " << mangler.resolve(input.name) << ";\n";
+            break;
+        }
+        case StatementKind::Output: {
+            const auto& outputStmt = static_cast<const OutputStmt&>(statement);
+            out << indent(indentLevel) << "std::cout << "
+                << emitExpression(outputStmt.value, mangler) << " << std::endl;\n";
+            break;
+        }
+        case StatementKind::If: {
+            const auto& ifStmt = static_cast<const IfStmt&>(statement);
+            for (std::size_t i = 0; i < ifStmt.branches.size(); ++i) {
+                const auto& branch = ifStmt.branches[i];
+                out << indent(indentLevel) << (i == 0 ? "if" : "else if") << " ("
+                    << emitExpression(branch.condition, mangler) << ") {\n";
+                emitStatements(branch.body, indentLevel + 1, out, mangler, true);
+                out << indent(indentLevel) << "}\n";
+            }
+            if (ifStmt.hasElse) {
+                out << indent(indentLevel) << "else {\n";
+                emitStatements(ifStmt.elseBranch, indentLevel + 1, out, mangler, true);
+                out << indent(indentLevel) << "}\n";
+            }
+            break;
+        }
+        case StatementKind::While: {
+            const auto& loop = static_cast<const WhileStmt&>(statement);
+            out << indent(indentLevel) << "while (" << emitExpression(loop.condition, mangler)
+                << ") {\n";
+            emitStatements(loop.body, indentLevel + 1, out, mangler, true);
+            out << indent(indentLevel) << "}\n";
+            break;
+        }
+        case StatementKind::ForRange: {
+            const auto& loop = static_cast<const ForRangeStmt&>(statement);
+            mangler.pushScope();
+            const std::string loopName = mangler.declare(loop.name);
+            out << indent(indentLevel) << "for (" << cppType(loop.type) << " " << loopName << " = "
+                << emitExpression(loop.from, mangler) << "; " << loopName << " <= "
+                << emitExpression(loop.to, mangler) << "; ++" << loopName << ") {\n";
+            emitStatements(loop.body, indentLevel + 1, out, mangler, true);
+            out << indent(indentLevel) << "}\n";
+            mangler.popScope();
+            break;
+        }
+    }
 }
 
 std::string emitExpression(const ExprPtr& expr, const NameMangler& mangler) {
     if (!expr) {
         return "0";
     }
-    return std::visit(
-        Overloaded{
-            [](const Expression::Literal& literal) {
-                switch (literal.type) {
-                    case ValueType::Integer:
-                    case ValueType::Double:
-                        return literal.text;
-                    case ValueType::String:
-                        return std::string("\"") + escapeString(literal.text) + "\"";
-                    case ValueType::Boolean:
-                        return literal.boolValue ? std::string("true") : std::string("false");
-                    case ValueType::Unknown:
-                    default:
-                        return literal.text;
-                }
-            },
-            [&](const Expression::Variable& var) {
-                return mangler.resolve(var.name);
-            },
-            [&](const Expression::Unary& unary) {
-                return unary.op + "(" + emitExpression(unary.operand, mangler) + ")";
-            },
-            [&](const Expression::Binary& binary) {
-                if (binary.op == "^") {
-                    return std::string("std::pow(") + emitExpression(binary.left, mangler) + ", " +
-                           emitExpression(binary.right, mangler) + ")";
-                }
-                return std::string("(") + emitExpression(binary.left, mangler) + " " + binary.op +
-                       " " + emitExpression(binary.right, mangler) + ")";
-            }},
-        expr->node);
+    switch (expr->kind()) {
+        case ExpressionKind::Literal: {
+            const auto& literal = static_cast<const LiteralExpr&>(*expr);
+            switch (literal.type) {
+                case ValueType::Integer:
+                case ValueType::Double:
+                    return literal.text;
+                case ValueType::String:
+                    return std::string("\"") + escapeString(literal.text) + "\"";
+                case ValueType::Boolean:
+                    return literal.boolValue ? std::string("true") : std::string("false");
+                case ValueType::Unknown:
+                default:
+                    return literal.text;
+            }
+        }
+        case ExpressionKind::Variable: {
+            const auto& var = static_cast<const VariableExpr&>(*expr);
+            return mangler.resolve(var.name);
+        }
+        case ExpressionKind::Unary: {
+            const auto& unary = static_cast<const UnaryExpr&>(*expr);
+            return unary.op + "(" + emitExpression(unary.operand, mangler) + ")";
+        }
+        case ExpressionKind::Binary: {
+            const auto& binary = static_cast<const BinaryExpr&>(*expr);
+            if (binary.op == "^") {
+                return std::string("std::pow(") + emitExpression(binary.left, mangler) + ", " +
+                       emitExpression(binary.right, mangler) + ")";
+            }
+            return std::string("(") + emitExpression(binary.left, mangler) + " " + binary.op + " " +
+                   emitExpression(binary.right, mangler) + ")";
+        }
+    }
+    return {};
 }
 
 void emitStatements(const std::vector<StmtPtr>& statements,
