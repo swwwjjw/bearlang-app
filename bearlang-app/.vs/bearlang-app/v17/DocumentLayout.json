@@ -3,19 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\\u0415\u0433\u043E\u0440\\Documents\\GitHub\\bearlang-app\\bearlang-app\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\\u0415\u0433\u043E\u0440\\Documents\\GitHub\\bearlang-app\\bearlang-app\\app\\core\\parser\\parser.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:app\\core\\parser\\parser.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\\u0415\u0433\u043E\u0440\\Documents\\GitHub\\bearlang-app\\bearlang-app\\app\\app.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:app\\app.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\\u0415\u0433\u043E\u0440\\Documents\\GitHub\\bearlang-app\\bearlang-app\\app\\core\\codegen\\codegen.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:app\\core\\codegen\\codegen.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\\u0415\u0433\u043E\u0440\\Documents\\GitHub\\bearlang-app\\bearlang-app\\app\\core\\lexer\\lexer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:app\\core\\lexer\\lexer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\\u0415\u0433\u043E\u0440\\Documents\\GitHub\\bearlang-app\\bearlang-app\\app\\core\\lexer\\lexer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:app\\core\\lexer\\lexer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\\u0415\u0433\u043E\u0440\\Documents\\GitHub\\bearlang-app\\bearlang-app\\out\\generated_program.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:out\\generated_program.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u043E\u0431\u0437\u043E\u0440\u0430 CMake||{B1CAA5B0-FEB1-4350-8AB9-F895876842F2}"
     }
   ],
   "DocumentGroupContainers": [
@@ -25,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -37,50 +42,64 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "codegen.cpp",
-              "DocumentMoniker": "C:\\Users\\\u0415\u0433\u043E\u0440\\Documents\\GitHub\\bearlang-app\\bearlang-app\\app\\core\\codegen\\codegen.cpp",
-              "RelativeDocumentMoniker": "app\\core\\codegen\\codegen.cpp",
-              "ToolTip": "C:\\Users\\\u0415\u0433\u043E\u0440\\Documents\\GitHub\\bearlang-app\\bearlang-app\\app\\core\\codegen\\codegen.cpp",
-              "RelativeToolTip": "app\\core\\codegen\\codegen.cpp",
-              "ViewState": "AgIAAJ8AAAAAAAAAAAAAANkAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-11-20T15:18:55.767Z",
+              "DocumentIndex": 0,
+              "Title": "parser.h",
+              "DocumentMoniker": "C:\\Users\\\u0415\u0433\u043E\u0440\\Documents\\GitHub\\bearlang-app\\bearlang-app\\app\\core\\parser\\parser.h",
+              "RelativeDocumentMoniker": "app\\core\\parser\\parser.h",
+              "ToolTip": "C:\\Users\\\u0415\u0433\u043E\u0440\\Documents\\GitHub\\bearlang-app\\bearlang-app\\app\\core\\parser\\parser.h",
+              "RelativeToolTip": "app\\core\\parser\\parser.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-12-03T17:26:41.075Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "lexer.h",
+              "DocumentMoniker": "C:\\Users\\\u0415\u0433\u043E\u0440\\Documents\\GitHub\\bearlang-app\\bearlang-app\\app\\core\\lexer\\lexer.h",
+              "RelativeDocumentMoniker": "app\\core\\lexer\\lexer.h",
+              "ToolTip": "C:\\Users\\\u0415\u0433\u043E\u0440\\Documents\\GitHub\\bearlang-app\\bearlang-app\\app\\core\\lexer\\lexer.h",
+              "RelativeToolTip": "app\\core\\lexer\\lexer.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-12-03T17:26:31.83Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "lexer.cpp",
+              "DocumentMoniker": "C:\\Users\\\u0415\u0433\u043E\u0440\\Documents\\GitHub\\bearlang-app\\bearlang-app\\app\\core\\lexer\\lexer.cpp",
+              "RelativeDocumentMoniker": "app\\core\\lexer\\lexer.cpp",
+              "ToolTip": "C:\\Users\\\u0415\u0433\u043E\u0440\\Documents\\GitHub\\bearlang-app\\bearlang-app\\app\\core\\lexer\\lexer.cpp",
+              "RelativeToolTip": "app\\core\\lexer\\lexer.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-12-03T17:26:22.933Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "generated_program.cpp",
               "DocumentMoniker": "C:\\Users\\\u0415\u0433\u043E\u0440\\Documents\\GitHub\\bearlang-app\\bearlang-app\\out\\generated_program.cpp",
               "RelativeDocumentMoniker": "out\\generated_program.cpp",
               "ToolTip": "C:\\Users\\\u0415\u0433\u043E\u0440\\Documents\\GitHub\\bearlang-app\\bearlang-app\\out\\generated_program.cpp",
               "RelativeToolTip": "out\\generated_program.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-11-20T14:44:47.447Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "app.cpp",
               "DocumentMoniker": "C:\\Users\\\u0415\u0433\u043E\u0440\\Documents\\GitHub\\bearlang-app\\bearlang-app\\app\\app.cpp",
               "RelativeDocumentMoniker": "app\\app.cpp",
               "ToolTip": "C:\\Users\\\u0415\u0433\u043E\u0440\\Documents\\GitHub\\bearlang-app\\bearlang-app\\app\\app.cpp",
               "RelativeToolTip": "app\\app.cpp",
-              "ViewState": "AgIAAFsAAAAAAAAAAAAAAGcAAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-11-15T14:26:10.097Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u043E\u0431\u0437\u043E\u0440\u0430 CMake",
-              "DocumentMoniker": "\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u043E\u0431\u0437\u043E\u0440\u0430 CMake",
-              "ToolTip": "\u0421\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u043E\u0431\u0437\u043E\u0440\u0430 CMake",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-11-15T14:25:47.034Z"
+              "WhenOpened": "2025-11-15T14:26:10.097Z"
             }
           ]
         }

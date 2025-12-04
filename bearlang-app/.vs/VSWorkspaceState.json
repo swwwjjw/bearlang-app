@@ -9,8 +9,10 @@
     "",
     "\\app",
     "\\app\\core",
-    "\\app\\core\\codegen"
+    "\\app\\core\\codegen",
+    "\\app\\core\\lexer",
+    "\\app\\core\\parser",
+    "\\out"
   ],
-  "SelectedNode": "\\app\\app.cpp",
   "PreviewInSolutionExplorer": false
 }

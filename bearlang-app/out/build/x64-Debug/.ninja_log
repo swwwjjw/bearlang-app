@@ -1,9 +1,11 @@
-# ninja log v5
-12	464	7849199578805758	CMakeFiles/bearlang_app.dir/app/core/lexer/token.cpp.obj	2b0a150d1dfcb996
-16	1211	7849199586279526	CMakeFiles/bearlang_app.dir/app/core/parser/parser.cpp.obj	5ba69af497aef89a
-2	1015	7853551911747698	CMakeFiles/bearlang_app.dir/app/core/codegen/codegen.cpp.obj	23b307dc746a1e63
-9	1077	7849199584873249	CMakeFiles/bearlang_app.dir/app/core/lexer/lexer.cpp.obj	797e7d3c747948e0
-22	2089	7853513044374763	CMakeFiles/bearlang_app.dir/app/app.cpp.obj	6f01804e465b343f
-1016	1155	7853551912767533	bearlang_app.exe	fdc655d6e0210745
-2	2106	7853554609182192	CMakeFiles/bearlang_app.dir/app/app.cpp.obj	6f01804e465b343f
-2107	2266	7853554610434866	bearlang_app.exe	fdc655d6e0210745
+# ninja log v6
+21	962	7864854924223332	CMakeFiles/bearlang_app.dir/app/core/lexer/token.cpp.obj	f8876a8b8bd1690
+25	1700	7864854924223332	CMakeFiles/bearlang_app.dir/app/core/parser/parser.cpp.obj	ae8b83c941ad49e1
+13	1828	7864854924067076	CMakeFiles/bearlang_app.dir/app/core/codegen/codegen.cpp.obj	7a59ea4ab1408de9
+16	1447	7864854924067076	CMakeFiles/bearlang_app.dir/app/core/lexer/lexer.cpp.obj	3813239e545db8b1
+8	3031	7864854924067076	CMakeFiles/bearlang_app.dir/app/app.cpp.obj	cc71b2c458e6e27
+3032	3368	7864854954254698	bearlang_app.exe	48a8fc12037877c5
+28	1927	7865369288485584	CMakeFiles/bearlang_app.dir/app/core/parser/parser.cpp.obj	ae8b83c941ad49e1
+24	2094	7865369288485584	CMakeFiles/bearlang_app.dir/app/core/codegen/codegen.cpp.obj	7a59ea4ab1408de9
+19	3711	7865369288329296	CMakeFiles/bearlang_app.dir/app/app.cpp.obj	cc71b2c458e6e27
+3711	3944	7865369325363314	bearlang_app.exe	48a8fc12037877c5
